@@ -1,0 +1,27 @@
+{
+  "name": "@webdesiz/cli",
+  "version": "1.0.0",
+  "description": "Read-only Webdesiz API client and MCP stdio server",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "webdesiz": "bin/webdesiz.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE",
+    "npm-shrinkwrap.json"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.3.0",
+    "zod": "4.6.5"
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1"
+  }
+}
