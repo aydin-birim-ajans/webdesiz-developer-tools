@@ -13,19 +13,32 @@ Read account, campaign and daily insight snapshots already stored in your Webdes
 
 Machine-readable schema: [OpenAPI 3.1](https://webdesiz.com/developers/openapi.json). OpenAPI is a specification format, not an OpenAI account or service requirement.
 
-## Install CLI 1.0.0
+## Install
 
-Requires **Node.js 22 or newer**. Install the verified website download. The instructions do not assume npm registry publication.
+Requires **Node.js 22 or newer**.
+
+### From npm
+
+```sh
+npm install --global --ignore-scripts @webdesiz/cli
+webdesiz --version
+```
+
+Or run it without a global install: `npx -y @webdesiz/cli --help`.
+
+### Claude Desktop extension
+
+Download `webdesiz.mcpb` from the [latest release](https://github.com/aydin-birim-ajans/webdesiz-developer-tools/releases/latest) and open it with Claude Desktop. Claude Desktop asks for the key and stores it as a secret field; it is passed to the MCP process as `WEBDESIZ_API_KEY`.
+
+### Website download (1.0.0)
+
+The original 1.0.0 release is also available as a verified website download:
 
 ```sh
 curl --fail --location --proto '=https' --proto-redir '=https' \
   -o webdesiz-cli-1.0.0.tgz \
   https://webdesiz.com/developers/webdesiz-cli-1.0.0.tgz
-
-# macOS:
-shasum -a 256 webdesiz-cli-1.0.0.tgz
-# Linux:
-sha256sum webdesiz-cli-1.0.0.tgz
+shasum -a 256 webdesiz-cli-1.0.0.tgz   # Linux: sha256sum
 ```
 
 Expected SHA-256:
@@ -34,13 +47,7 @@ Expected SHA-256:
 326d7eecdc1048346d96e2e9c80519b816b8321973ef08f2a180be35ecf6e227
 ```
 
-Compare the entire value with [SHA256SUMS](https://webdesiz.com/developers/SHA256SUMS). Stop if it differs. SHA-256 verifies file integrity; it is not a digital signature.
-
-```sh
-npm install --global --ignore-scripts ./webdesiz-cli-1.0.0.tgz
-webdesiz --version
-# 1.0.0
-```
+Compare the entire value with [SHA256SUMS](https://webdesiz.com/developers/SHA256SUMS). Stop if it differs. SHA-256 verifies file integrity; it is not a digital signature. Then `npm install --global --ignore-scripts ./webdesiz-cli-1.0.0.tgz`.
 
 ## Create a scoped key
 
@@ -71,7 +78,7 @@ The client is fixed to `https://webdesiz.com/api/v1/developer`, rejects redirect
 
 Your host must support a local process-based stdio MCP server. This release has no hosted HTTP MCP endpoint or OAuth login flow. Install the CLI on the machine where the MCP host runs.
 
-Host configuration:
+Host configuration with a global install:
 
 ```json
 {
@@ -79,6 +86,19 @@ Host configuration:
     "webdesiz": {
       "command": "webdesiz",
       "args": ["mcp"]
+    }
+  }
+}
+```
+
+Or without a global install:
+
+```json
+{
+  "mcpServers": {
+    "webdesiz": {
+      "command": "npx",
+      "args": ["-y", "@webdesiz/cli", "mcp"]
     }
   }
 }
@@ -116,6 +136,10 @@ Read limits: 60 requests/minute/key, 120/minute/organization and 180/minute/IP i
 - Missing purchase evidence produces `null`, not zero. Explicitly reported zero remains zero. `purchaseMeasurement` indicates reported value, reported count or unavailable measurement. `roas` is `purchaseValue / spend` only with an available value and positive spend; otherwise it is `null`.
 - Account access tokens and raw provider payloads are not exposed.
 
+## Privacy Policy
+
+The CLI and MCP server run on your machine. They send only your developer key (in the `Authorization` header) and the query parameters you choose to `https://webdesiz.com/api/v1/developer/*`, and return the stored snapshots of your own organization. They keep no local files, logs or telemetry and do not contact any other service. How Webdesiz collects, uses, shares and retains data, and how to contact us, is described in the [Webdesiz Privacy Policy](https://webdesiz.com/en/privacy).
+
 ## Türkçe kısa başlangıç
 
-Node.js 22+ ile yukarıdaki indirilebilir paketin SHA-256 değerini doğrulayıp kurun. Panelde OWNER/ADMIN olarak yalnız gereken okuma izinleriyle süreli anahtar oluşturun. Anahtarı sır yöneticisi üzerinden `WEBDESIZ_API_KEY` ortam değişkenine aktarın; sohbete, URL’ye veya komut argümanına yazmayın. Yerel stdio destekleyen MCP istemcisi üç okuma aracını kullanabilir. Kayıtlı veriler okunur; reklam değişikliği, Meta yenilemesi, içerik üretimi veya mesaj gönderimi bu bağlantıda bulunmaz. Ayrıntılar üstteki Türkçe API/MCP/CLI bağlantılarındadır.
+Node.js 22+ ile `npm install --global @webdesiz/cli` komutuyla (ya da SHA-256 değeri doğrulanmış site indirmesiyle) kurun. Panelde OWNER/ADMIN olarak yalnız gereken okuma izinleriyle süreli anahtar oluşturun. Anahtarı sır yöneticisi üzerinden `WEBDESIZ_API_KEY` ortam değişkenine aktarın; sohbete, URL’ye veya komut argümanına yazmayın. Yerel stdio destekleyen MCP istemcisi üç okuma aracını kullanabilir. Kayıtlı veriler okunur; reklam değişikliği, Meta yenilemesi, içerik üretimi veya mesaj gönderimi bu bağlantıda bulunmaz. Ayrıntılar üstteki Türkçe API/MCP/CLI bağlantılarındadır.

@@ -1,0 +1,45 @@
+{
+  "manifest_version": "0.3",
+  "name": "webdesiz",
+  "display_name": "Webdesiz",
+  "version": "1.0.1",
+  "description": "Read stored Meta ad account, campaign and daily insight snapshots from your Webdesiz organization. Read-only.",
+  "long_description": "Ask Claude about the Meta (Facebook + Instagram) advertising data already stored in your Webdesiz organization: ad accounts, campaigns and daily insights. The connection is read-only: it cannot change campaigns or budgets, refresh Meta data, generate ads or spend money. Requires a scoped, expiring Webdesiz developer key created by an organization owner or admin in Settings → Developer keys.",
+  "author": { "name": "Webdesiz", "url": "https://webdesiz.com" },
+  "repository": { "type": "git", "url": "https://github.com/aydin-birim-ajans/webdesiz-developer-tools" },
+  "homepage": "https://webdesiz.com/en/developers",
+  "documentation": "https://webdesiz.com/en/developers/mcp",
+  "support": "https://github.com/aydin-birim-ajans/webdesiz-developer-tools/issues",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "bin/webdesiz.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/bin/webdesiz.mjs", "mcp"],
+      "env": { "WEBDESIZ_API_KEY": "${user_config.api_key}" }
+    }
+  },
+  "tools": [
+    { "name": "webdesiz_accounts", "description": "Stored ad account snapshots (scope accounts:read)." },
+    { "name": "webdesiz_campaigns", "description": "Stored campaign snapshots (scope campaigns:read)." },
+    { "name": "webdesiz_insights", "description": "Stored daily account and campaign insight rows (scope insights:read)." }
+  ],
+  "tools_generated": false,
+  "keywords": ["meta ads", "facebook ads", "instagram ads", "advertising", "campaigns", "insights"],
+  "license": "MIT",
+  "privacy_policies": ["https://webdesiz.com/en/privacy"],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=22.0.0" }
+  },
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "Webdesiz developer key",
+      "description": "Create a scoped key at https://webdesiz.com/ayarlar/gelistirici (starts with wd_live_).",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

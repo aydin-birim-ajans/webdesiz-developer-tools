@@ -1,0 +1,32 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.webdesiz/cli",
+  "title": "Webdesiz",
+  "description": "Read-only Meta ad account, campaign and insight snapshots stored in a Webdesiz organization.",
+  "websiteUrl": "https://webdesiz.com/en/developers",
+  "repository": {
+    "url": "https://github.com/aydin-birim-ajans/webdesiz-developer-tools",
+    "source": "github"
+  },
+  "version": "1.0.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@webdesiz/cli",
+      "version": "1.0.1",
+      "transport": { "type": "stdio" },
+      "packageArguments": [
+        { "type": "positional", "value": "mcp" }
+      ],
+      "environmentVariables": [
+        {
+          "name": "WEBDESIZ_API_KEY",
+          "description": "Scoped, expiring developer key from https://webdesiz.com/ayarlar/gelistirici",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

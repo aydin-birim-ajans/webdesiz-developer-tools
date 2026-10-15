@@ -1,7 +1,26 @@
 {
   "name": "@webdesiz/cli",
-  "version": "1.0.0",
-  "description": "Read-only Webdesiz API client and MCP stdio server",
+  "version": "1.0.1",
+  "mcpName": "com.webdesiz/cli",
+  "description": "Read-only Webdesiz API client and MCP stdio server: stored Meta ad account, campaign and insight snapshots.",
+  "keywords": [
+    "mcp",
+    "modelcontextprotocol",
+    "meta-ads",
+    "facebook-ads",
+    "instagram-ads",
+    "advertising",
+    "cli",
+    "webdesiz"
+  ],
+  "homepage": "https://webdesiz.com/en/developers",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aydin-birim-ajans/webdesiz-developer-tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aydin-birim-ajans/webdesiz-developer-tools/issues"
+  },
   "type": "module",
   "license": "MIT",
   "bin": {
@@ -23,5 +42,6 @@
   },
   "scripts": {
     "test": "node --test --test-concurrency=1"
-  }
+  },
+  "author": "Webdesiz"
 }
